@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# MyPy
+.mypy_cache/
+
+# MkDocs
+site/
+
+# Personal research data (NEVER commit sensitive/patient data)
+research/
+*.h5
+*.pth
+*.ckpt
+!examples/*.h5
+
+# Environment
+.env
+.env.local
+
+# Ruff cache
+.ruff_cache/

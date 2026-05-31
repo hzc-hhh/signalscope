@@ -1,0 +1,88 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "signalscope"
+version = "0.1.0"
+description = "Unified AI Research Framework for Biomedical Sensor Signals — preprocessing, model zoo, benchmark, and research pipeline."
+readme = "README.md"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "SignalScope Contributors"},
+]
+keywords = [
+    "biomedical-signals",
+    "radar-sensing",
+    "vital-signs",
+    "time-series",
+    "deep-learning",
+    "signal-processing",
+    "healthcare-ai",
+    "multi-modal",
+    "benchmark",
+    "preprocessing-pipeline",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "torch>=2.0",
+    "matplotlib>=3.7",
+    "tqdm>=4.65",
+    "pyyaml>=6.0",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+    "mypy>=1.0",
+    "pre-commit>=3.0",
+]
+docs = [
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.0",
+    "mkdocstrings[python]>=0.24",
+]
+examples = [
+    "jupyter>=1.0",
+    "ipywidgets>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/signalscope/signalscope"
+Documentation = "https://signalscope.github.io"
+Repository = "https://github.com/signalscope/signalscope.git"
+Issues = "https://github.com/signalscope/signalscope/issues"
+
+[tool.setuptools.packages.find]
+include = ["signalscope*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short --strict-markers"
