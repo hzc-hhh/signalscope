@@ -4,13 +4,12 @@ Biomedical sensor signal metrics.
 Standard and domain-specific evaluation metrics.
 """
 
-from typing import Dict, Optional
 
 import numpy as np
 from scipy import stats
 
 
-def heart_rate_error(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
+def heart_rate_error(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     """
     Heart rate estimation error metrics.
 
@@ -35,7 +34,7 @@ def heart_rate_error(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]
     }
 
 
-def respiration_rate_error(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
+def respiration_rate_error(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     """
     Respiration rate estimation error metrics.
 
@@ -59,7 +58,7 @@ def pearson_correlation(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 def bland_altman(
     y_true: np.ndarray,
     y_pred: np.ndarray,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Bland-Altman limits of agreement.
 
@@ -90,7 +89,7 @@ def compute_metrics(
     y_true: np.ndarray,
     y_pred: np.ndarray,
     task: str = "regression",
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Compute comprehensive evaluation metrics.
 

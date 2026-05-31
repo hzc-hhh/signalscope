@@ -7,8 +7,8 @@ Standardized interface for:
 - Generating leaderboard comparisons
 """
 
-from signalscope.benchmark.runner import BenchmarkRunner
 from signalscope.benchmark.dataset import BenchmarkDataset
 from signalscope.benchmark.leaderboard import Leaderboard
+from signalscope.benchmark.runner import BenchmarkRunner
 
 __all__ = ["BenchmarkRunner", "BenchmarkDataset", "Leaderboard"]

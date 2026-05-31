@@ -4,7 +4,7 @@ Radar signal utilities: clutter removal, phase demodulation, and filtering.
 These are standalone functions that can be used independently of the pipeline.
 """
 
-from typing import Literal, Optional, Tuple
+from typing import Literal
 
 import numpy as np
 from scipy import signal as scipy_signal
@@ -90,10 +90,10 @@ def dacm_demodulate(iq_real: np.ndarray, iq_imag: np.ndarray) -> np.ndarray:
 def extract_vital_signals(
     phase: np.ndarray,
     sample_rate: float,
-    resp_band: Tuple[float, float] = (0.1, 0.5),
-    heart_band: Tuple[float, float] = (0.8, 3.0),
+    resp_band: tuple[float, float] = (0.1, 0.5),
+    heart_band: tuple[float, float] = (0.8, 3.0),
     order: int = 4,
-) -> Tuple[np.ndarray, np.ndarray]:
+) -> tuple[np.ndarray, np.ndarray]:
     """
     Extract respiration and heartbeat waveforms from the demodulated phase.
 
@@ -139,8 +139,8 @@ def extract_vital_signals(
 def estimate_bpm(
     signal: np.ndarray,
     sample_rate: float,
-    freq_range: Tuple[float, float],
-) -> Optional[float]:
+    freq_range: tuple[float, float],
+) -> float | None:
     """
     Estimate dominant frequency in BPM using FFT.
 

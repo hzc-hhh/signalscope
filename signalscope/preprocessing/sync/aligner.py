@@ -7,7 +7,6 @@ Synchronizes signals from different sensors (radar, PPG, ECG) by:
 - Handling missing modalities gracefully
 """
 
-from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 from scipy import signal as scipy_signal
@@ -37,7 +36,7 @@ class MultiModalAligner(Pipeline):
 
     def __call__(
         self,
-        signals: Dict[str, Tuple[np.ndarray, float]],
+        signals: dict[str, tuple[np.ndarray, float]],
     ) -> PipelineResult:
         """
         Align multi-modal signals.

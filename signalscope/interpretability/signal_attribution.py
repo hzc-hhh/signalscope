@@ -4,7 +4,6 @@ Signal attribution analysis.
 Tools for understanding which parts of an input signal drive model predictions.
 """
 
-from typing import Optional
 
 import numpy as np
 import torch
@@ -13,7 +12,7 @@ import torch
 def attention_weights(
     model: torch.nn.Module,
     x: torch.Tensor,
-    layer_name: Optional[str] = None,
+    layer_name: str | None = None,
 ) -> np.ndarray:
     """
     Extract attention weights from a transformer model.
@@ -33,7 +32,6 @@ def attention_weights(
         Attention weight matrix.
     """
     model.eval()
-    weights_registry = {}
 
     def hook_fn(module, input_, output):
         # Some attention implementations return weights as second output
@@ -56,7 +54,7 @@ def attention_weights(
 def gradient_attribution(
     model: torch.nn.Module,
     x: torch.Tensor,
-    target: Optional[int] = None,
+    target: int | None = None,
 ) -> np.ndarray:
     """
     Compute input-gradient attribution (saliency map for 1D signals).

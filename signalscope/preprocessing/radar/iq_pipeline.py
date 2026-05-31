@@ -12,8 +12,8 @@ Reference methods:
 - Adaptive Clutter: Recursive average with forgetting factor
 """
 
-from typing import Dict, Literal, Optional, Tuple, Union
 from dataclasses import dataclass, field
+from typing import Literal
 
 import numpy as np
 from scipy import signal as scipy_signal
@@ -28,9 +28,9 @@ class VitalSigns:
     respiration: np.ndarray
     heartbeat: np.ndarray
     sample_rate: float
-    respiration_rate_bpm: Optional[float] = None
-    heart_rate_bpm: Optional[float] = None
-    metadata: Dict = field(default_factory=dict)
+    respiration_rate_bpm: float | None = None
+    heart_rate_bpm: float | None = None
+    metadata: dict = field(default_factory=dict)
 
     def __repr__(self) -> str:
         return (
@@ -60,7 +60,7 @@ class IQPipeline(Pipeline):
         self,
         clutter_filter: Literal["none", "static", "adaptive"] = "adaptive",
         phase_method: Literal["dacm", "arctan"] = "dacm",
-        bandpass: Tuple[float, float] = (0.1, 3.0),
+        bandpass: tuple[float, float] = (0.1, 3.0),
         sample_rate: int = 1000,
         **config,
     ):
@@ -75,7 +75,7 @@ class IQPipeline(Pipeline):
     def __call__(
         self,
         iq_data: np.ndarray,
-        sample_rate: Optional[int] = None,
+        sample_rate: int | None = None,
         **kwargs,
     ) -> PipelineResult:
         """
@@ -221,8 +221,8 @@ class IQPipeline(Pipeline):
         self,
         signal: np.ndarray,
         sr: float,
-        band: Tuple[float, float],
-    ) -> Optional[float]:
+        band: tuple[float, float],
+    ) -> float | None:
         """Estimate dominant frequency (converted to BPM) via FFT."""
         n = len(signal)
         if n < 2:

@@ -9,21 +9,21 @@ Domain-aware metrics beyond standard regression/classification:
 - Statistical significance tests
 """
 
+from signalscope.evaluation.cross_validation import (
+    SubjectWiseSplit,
+    TimeSeriesSplit,
+)
 from signalscope.evaluation.metrics import (
+    bland_altman,
     compute_metrics,
     heart_rate_error,
-    respiration_rate_error,
     pearson_correlation,
-    bland_altman,
+    respiration_rate_error,
 )
 from signalscope.evaluation.statistical_tests import (
+    bootstrap_confidence_interval,
     paired_ttest,
     wilcoxon_test,
-    bootstrap_confidence_interval,
-)
-from signalscope.evaluation.cross_validation import (
-    TimeSeriesSplit,
-    SubjectWiseSplit,
 )
 
 __all__ = [

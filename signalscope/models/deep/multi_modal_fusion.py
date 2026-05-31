@@ -5,13 +5,12 @@ Cross-attention based fusion of signals from different modalities
 (e.g., radar + PPG + ECG).
 """
 
-from typing import Optional
 
 import torch
 import torch.nn as nn
 
-from signalscope.models.base import BaseModel
 from signalscope.core.registry import register_model
+from signalscope.models.base import BaseModel
 
 
 @register_model("multi_modal_fusion")
@@ -109,7 +108,7 @@ class MultiModalFusion(BaseModel):
         # Concatenate and fuse
         fused = attn_out.reshape(attn_out.size(0), -1)
         for layer in self.fusion_layers:
-            fused = layer(fused) + fused[:fused.size(0), : layer(fused).out_features] if fused.shape == layer(fused).shape else layer(fused)
+            fused = layer(fused)
 
         out = self.fc(fused)
         return out.squeeze(-1) if self.num_classes == 1 else out

@@ -8,7 +8,7 @@ and multi-subject biomedical data. SignalScope provides:
 - SubjectWiseSplit: Leave-subjects-out for multi-subject datasets
 """
 
-from typing import Iterator, List, Optional, Tuple
+from collections.abc import Iterator
 
 import numpy as np
 
@@ -34,13 +34,13 @@ class TimeSeriesSplit:
         self,
         n_splits: int = 5,
         gap: int = 0,
-        test_size: Optional[int] = None,
+        test_size: int | None = None,
     ):
         self.n_splits = n_splits
         self.gap = gap
         self.test_size = test_size
 
-    def split(self, data: np.ndarray) -> Iterator[Tuple[np.ndarray, np.ndarray]]:
+    def split(self, data: np.ndarray) -> Iterator[tuple[np.ndarray, np.ndarray]]:
         """
         Generate train/test index splits.
 
@@ -101,8 +101,8 @@ class SubjectWiseSplit:
 
     def split(
         self,
-        subject_ids: List[str],
-    ) -> Iterator[Tuple[List[str], List[str]]]:
+        subject_ids: list[str],
+    ) -> Iterator[tuple[list[str], list[str]]]:
         """
         Generate subject-wise train/test splits.
 

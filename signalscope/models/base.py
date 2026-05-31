@@ -5,7 +5,7 @@ Provides a consistent interface: train(), predict(), save(), load().
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Tuple
+from typing import Any
 
 import numpy as np
 import torch
@@ -21,7 +21,7 @@ class BaseModel(ABC, nn.Module):
     - fit(train_loader, val_loader, **kwargs) -> Dict
     """
 
-    def __init__(self, name: Optional[str] = None, **config: Any):
+    def __init__(self, name: str | None = None, **config: Any):
         super().__init__()
         self.name = name or self.__class__.__name__
         self.config = config
@@ -34,12 +34,12 @@ class BaseModel(ABC, nn.Module):
     def fit(
         self,
         train_loader: torch.utils.data.DataLoader,
-        val_loader: Optional[torch.utils.data.DataLoader] = None,
+        val_loader: torch.utils.data.DataLoader | None = None,
         epochs: int = 50,
         lr: float = 1e-3,
-        device: Optional[str] = None,
+        device: str | None = None,
         **kwargs,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """
         Standard training loop.
 
@@ -51,7 +51,7 @@ class BaseModel(ABC, nn.Module):
         optimizer = torch.optim.Adam(self.parameters(), lr=lr)
         criterion = nn.MSELoss()
 
-        history: Dict[str, Any] = {"train_loss": [], "val_loss": []}
+        history: dict[str, Any] = {"train_loss": [], "val_loss": []}
 
         for epoch in range(epochs):
             self.train()
@@ -98,7 +98,7 @@ class BaseModel(ABC, nn.Module):
                 total += criterion(pred, y).item()
         return total / max(1, len(loader))
 
-    def predict(self, x: torch.Tensor, device: Optional[str] = None) -> np.ndarray:
+    def predict(self, x: torch.Tensor, device: str | None = None) -> np.ndarray:
         """Inference. Returns numpy array."""
         device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         self.to(device)
@@ -121,7 +121,7 @@ class BaseModel(ABC, nn.Module):
             path,
         )
 
-    def load(self, path: str, device: Optional[str] = None) -> None:
+    def load(self, path: str, device: str | None = None) -> None:
         """Load model weights and config."""
         device = device or ("cuda" if torch.cuda.is_available() else "cpu")
         checkpoint = torch.load(path, map_location=device, weights_only=True)

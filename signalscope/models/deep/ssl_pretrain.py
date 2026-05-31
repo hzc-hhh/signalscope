@@ -5,13 +5,12 @@ SimCLR-style contrastive learning adapted for 1D time-series.
 Two augmented views of the same signal should have similar representations.
 """
 
-from typing import Optional
 
 import torch
 import torch.nn as nn
 
-from signalscope.models.base import BaseModel
 from signalscope.core.registry import register_model
+from signalscope.models.base import BaseModel
 
 
 @register_model("ssl_pretrain")
@@ -35,7 +34,7 @@ class SSLPretrain(BaseModel):
 
     def __init__(
         self,
-        encoder: Optional[nn.Module] = None,
+        encoder: nn.Module | None = None,
         proj_dim: int = 128,
         temperature: float = 0.07,
         **config,

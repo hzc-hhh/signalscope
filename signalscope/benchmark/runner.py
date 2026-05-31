@@ -5,12 +5,11 @@ Runs multiple models on multiple tasks with consistent evaluation,
 generating reproducible leaderboards.
 """
 
-from typing import Any, Dict, List, Optional, Union
 
 import numpy as np
 
-from signalscope.core.pipeline import Pipeline, PipelineResult
 from signalscope.benchmark.leaderboard import Leaderboard
+from signalscope.core.pipeline import Pipeline, PipelineResult
 
 
 class BenchmarkRunner(Pipeline):
@@ -39,9 +38,9 @@ class BenchmarkRunner(Pipeline):
 
     def __init__(
         self,
-        tasks: List[str],
-        models: List[str],
-        metrics: Optional[List[str]] = None,
+        tasks: list[str],
+        models: list[str],
+        metrics: list[str] | None = None,
         n_splits: int = 5,
         **config,
     ):
@@ -69,11 +68,11 @@ class BenchmarkRunner(Pipeline):
             if dataset is None:
                 dataset = self._generate_synthetic_data()
 
-            X, y = dataset
+            x_data, y_data = dataset
             leaderboard = Leaderboard()
 
             for model_name in self.config["models"]:
-                results = self._evaluate_model(model_name, X, y)
+                results = self._evaluate_model(model_name, x_data, y_data)
                 leaderboard.add_result(model_name, results)
 
             leaderboard.compute_ranks()
@@ -85,9 +84,9 @@ class BenchmarkRunner(Pipeline):
     def _evaluate_model(
         self,
         model_name: str,
-        X: np.ndarray,
-        y: np.ndarray,
-    ) -> Dict[str, float]:
+        x_data: np.ndarray,
+        y_data: np.ndarray,
+    ) -> dict[str, float]:
         """Evaluate a single model (simplified — stub for demonstration)."""
         from signalscope.models import ModelZoo
 
@@ -95,20 +94,22 @@ class BenchmarkRunner(Pipeline):
 
         if model_name == "classical":
             from signalscope.models.classical.signal_process import ClassicalBaseline
-            model = ClassicalBaseline(sample_rate=100.0)
+
+            _model = ClassicalBaseline(sample_rate=100.0)
         else:
-            model = zoo.get(model_name, in_channels=1, num_classes=1)
+            _model = zoo.get(model_name, in_channels=1, num_classes=1)
+        _ = _model  # model variable reserved for future use
 
         # Simplified evaluation: use a random baseline for demo
         # In production, this would run actual cross-validation
-        n = len(X)
+        n = len(x_data)
         indices = np.random.permutation(n)
         split = n // self.config.get("n_splits", 5)
 
         all_mae = []
         for fold in range(self.config.get("n_splits", 5)):
             test_idx = indices[fold * split : (fold + 1) * split]
-            y_test = y[test_idx]
+            y_test = y_data[test_idx]
             # Simplified: random prediction around truth
             y_pred = y_test + np.random.normal(0, 2.0, size=len(y_test))
             mae = float(np.mean(np.abs(y_test - y_pred)))
@@ -126,6 +127,6 @@ class BenchmarkRunner(Pipeline):
     ) -> tuple:
         """Generate synthetic sensor data for demonstration."""
         rng = np.random.RandomState(42)
-        X = rng.randn(n_samples, n_features).astype(np.float32)
-        y = 0.5 * np.sin(np.linspace(0, 10 * np.pi, n_samples)) + rng.randn(n_samples) * 0.1
-        return X, y.astype(np.float32)
+        x_synth = rng.randn(n_samples, n_features).astype(np.float32)
+        y_synth = 0.5 * np.sin(np.linspace(0, 10 * np.pi, n_samples)) + rng.randn(n_samples) * 0.1
+        return x_synth, y_synth.astype(np.float32)

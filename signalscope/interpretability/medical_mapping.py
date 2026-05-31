@@ -4,7 +4,6 @@ Medical semantic mapping.
 Map learned latent representations to known physiological concepts.
 """
 
-from typing import Dict, Optional
 
 import numpy as np
 from scipy import stats
@@ -12,9 +11,9 @@ from scipy import stats
 
 def latent_correlation(
     latent_vectors: np.ndarray,
-    physiological_labels: Dict[str, np.ndarray],
+    physiological_labels: dict[str, np.ndarray],
     method: str = "pearson",
-) -> Dict[str, Dict[int, float]]:
+) -> dict[str, dict[int, float]]:
     """
     Correlate each latent dimension with known physiological variables.
 

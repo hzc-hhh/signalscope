@@ -9,13 +9,12 @@ Stacked residual blocks with 1D convolutions. Suitable for:
 Configurable depth, kernel size, and dropout.
 """
 
-from typing import Optional
 
 import torch
 import torch.nn as nn
 
-from signalscope.models.base import BaseModel
 from signalscope.core.registry import register_model
+from signalscope.models.base import BaseModel
 
 
 class ResidualBlock1D(nn.Module):
@@ -101,7 +100,11 @@ class ResNet1D(BaseModel):
         self.num_classes = num_classes
 
         self.initial = nn.Sequential(
-            nn.Conv1d(in_channels, base_channels, kernel_size=kernel_size, stride=2, padding=kernel_size // 2),
+            nn.Conv1d(
+                in_channels, base_channels,
+                kernel_size=kernel_size, stride=2,
+                padding=kernel_size // 2,
+            ),
             nn.BatchNorm1d(base_channels),
             nn.ReLU(inplace=True),
             nn.MaxPool1d(kernel_size=3, stride=2, padding=1),

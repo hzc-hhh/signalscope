@@ -6,13 +6,12 @@ with a [CLS] token for sequence-level prediction.
 """
 
 import math
-from typing import Optional
 
 import torch
 import torch.nn as nn
 
-from signalscope.models.base import BaseModel
 from signalscope.core.registry import register_model
+from signalscope.models.base import BaseModel
 
 
 class PositionalEncoding(nn.Module):

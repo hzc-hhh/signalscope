@@ -2,7 +2,6 @@
 ECG signal preprocessing: filtering, QRS detection, R-R interval extraction (placeholder).
 """
 
-from typing import Optional
 
 import numpy as np
 from scipy import signal as scipy_signal
@@ -24,7 +23,7 @@ class ECGProcessor(Pipeline):
             lowcut=lowcut, highcut=highcut, sample_rate=sample_rate, **config
         )
 
-    def __call__(self, ecg_signal: np.ndarray, sample_rate: Optional[float] = None) -> PipelineResult:
+    def __call__(self, ecg_signal: np.ndarray, sample_rate: float | None = None) -> PipelineResult:
         sr = sample_rate or self.config["sample_rate"]
         try:
             filtered = self._bandpass_filter(ecg_signal, sr)

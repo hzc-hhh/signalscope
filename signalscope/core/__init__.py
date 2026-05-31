@@ -1,9 +1,9 @@
 from signalscope.core.pipeline import Pipeline, PipelineResult
 from signalscope.core.registry import (
-    Registry,
+    METRIC_REGISTRY,
     MODEL_REGISTRY,
     PREPROCESSING_REGISTRY,
-    METRIC_REGISTRY,
+    Registry,
     register_model,
     register_preprocessing,
 )

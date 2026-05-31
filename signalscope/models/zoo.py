@@ -4,7 +4,7 @@ Model Zoo — centralized model discovery and instantiation.
 Provides a clean API to list, get, and instantiate any registered model.
 """
 
-from typing import Any, Dict, Optional
+from typing import Any
 
 from signalscope.core.registry import MODEL_REGISTRY
 
@@ -24,7 +24,7 @@ class ModelZoo:
     def __init__(self):
         self.registry = MODEL_REGISTRY
 
-    def list(self) -> Dict[str, type]:
+    def list(self) -> dict[str, type]:
         """Return all registered models."""
         return self.registry.list()
 

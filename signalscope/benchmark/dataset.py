@@ -4,7 +4,6 @@ Benchmark dataset interface.
 Provides a consistent API for loading public biomedical sensor datasets.
 """
 
-from typing import Dict, Optional, Tuple
 
 import numpy as np
 
@@ -23,7 +22,7 @@ class BenchmarkDataset(Pipeline):
         Path to cached/downloaded dataset.
     """
 
-    def __init__(self, name: str, path: Optional[str] = None, **config):
+    def __init__(self, name: str, path: str | None = None, **config):
         super().__init__(name=name, path=path, **config)
         self.name = name
         self.path = path
@@ -36,7 +35,7 @@ class BenchmarkDataset(Pipeline):
         except Exception as e:
             return PipelineResult(data=None, success=False, error=str(e))
 
-    def _load(self, **kwargs) -> Dict[str, np.ndarray]:
+    def _load(self, **kwargs) -> dict[str, np.ndarray]:
         """
         Load dataset. Override for specific datasets.
 
@@ -51,7 +50,7 @@ class BenchmarkDataset(Pipeline):
         )
 
     @property
-    def info(self) -> Dict:
+    def info(self) -> dict:
         """Dataset metadata."""
         return {
             "name": self.name,

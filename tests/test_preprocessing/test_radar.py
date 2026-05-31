@@ -3,13 +3,12 @@ Tests for SignalScope preprocessing module.
 """
 
 import numpy as np
-import pytest
 
 from signalscope.preprocessing.radar import (
     IQPipeline,
     VitalSigns,
-    remove_clutter,
     estimate_bpm,
+    remove_clutter,
 )
 
 

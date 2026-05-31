@@ -5,10 +5,9 @@ Provides model-free baselines (FFT peak detection, bandpower analysis)
 that serve as lower-bound comparisons for deep learning models.
 """
 
-from typing import Optional, Tuple
 
 import numpy as np
-from scipy import signal as scipy_signal
+import torch
 
 from signalscope.models.base import BaseModel
 
@@ -34,7 +33,7 @@ class ClassicalBaseline(BaseModel):
         self,
         method: str = "fft_peak",
         sample_rate: float = 100.0,
-        freq_range: Tuple[float, float] = (0.8, 3.0),
+        freq_range: tuple[float, float] = (0.8, 3.0),
         **config,
     ):
         super().__init__(method=method, sample_rate=sample_rate, **config)
@@ -42,7 +41,7 @@ class ClassicalBaseline(BaseModel):
         self.sample_rate = sample_rate
         self.freq_range = freq_range
 
-    def forward(self, x: "torch.Tensor") -> "torch.Tensor":
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Not used for classical baselines. Use predict() instead."""
         raise NotImplementedError("ClassicalBaseline uses predict(), not forward().")
 
@@ -50,7 +49,7 @@ class ClassicalBaseline(BaseModel):
         """No-op: classical methods don't train."""
         return {"train_loss": [], "val_loss": []}
 
-    def predict(self, x: "torch.Tensor", device: Optional[str] = None) -> np.ndarray:
+    def predict(self, x: torch.Tensor, device: str | None = None) -> np.ndarray:
         """
         Estimate dominant frequency in BPM.
 
@@ -82,8 +81,8 @@ class ClassicalBaseline(BaseModel):
     def _fft_peak_bpm(
         signal: np.ndarray,
         sr: float,
-        freq_range: Tuple[float, float],
-    ) -> Optional[float]:
+        freq_range: tuple[float, float],
+    ) -> float | None:
         n = len(signal)
         if n < 2:
             return None

@@ -5,8 +5,9 @@ The Registry allows users and contributors to register custom preprocessing
 steps, model architectures, and evaluation metrics dynamically.
 """
 
-from typing import Any, Callable, Dict, Optional, Type
 import logging
+from collections.abc import Callable
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ class Registry:
 
     def __init__(self, name: str = "registry"):
         self.name = name
-        self._entries: Dict[str, Any] = {}
+        self._entries: dict[str, Any] = {}
         logger.info(f"Created registry: {name}")
 
     def register(self, key: str, value: Any, overwrite: bool = False) -> None:
@@ -39,7 +40,7 @@ class Registry:
             )
         return self._entries[key]
 
-    def list(self) -> Dict[str, Any]:
+    def list(self) -> dict[str, Any]:
         """Return all registered entries."""
         return dict(self._entries)
 
@@ -68,7 +69,7 @@ METRIC_REGISTRY = Registry("metrics")
 def register_model(name: str, overwrite: bool = False) -> Callable:
     """Decorator to register a model class."""
 
-    def decorator(cls: Type) -> Type:
+    def decorator(cls: type) -> type:
         MODEL_REGISTRY.register(name, cls, overwrite=overwrite)
         return cls
 
@@ -78,7 +79,7 @@ def register_model(name: str, overwrite: bool = False) -> Callable:
 def register_preprocessing(name: str, overwrite: bool = False) -> Callable:
     """Decorator to register a preprocessing pipeline."""
 
-    def decorator(cls: Type) -> Type:
+    def decorator(cls: type) -> type:
         PREPROCESSING_REGISTRY.register(name, cls, overwrite=overwrite)
         return cls
 

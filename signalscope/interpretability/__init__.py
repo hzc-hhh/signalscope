@@ -6,12 +6,12 @@ Methods to understand what a model learns from physiological signals:
 - Medical semantic mapping (which latent dimensions correspond to known physiology)
 """
 
+from signalscope.interpretability.medical_mapping import (
+    latent_correlation,
+)
 from signalscope.interpretability.signal_attribution import (
     attention_weights,
     gradient_attribution,
-)
-from signalscope.interpretability.medical_mapping import (
-    latent_correlation,
 )
 
 __all__ = [

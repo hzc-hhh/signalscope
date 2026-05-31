@@ -2,9 +2,8 @@
 Tests for SignalScope model modules.
 """
 
-import numpy as np
-import torch
 import pytest
+import torch
 
 from signalscope.models import ModelZoo, ResNet1D, TransformerTS
 

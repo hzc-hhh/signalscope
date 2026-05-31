@@ -1,9 +1,9 @@
 from signalscope.preprocessing.radar.iq_pipeline import IQPipeline, VitalSigns
 from signalscope.preprocessing.radar.signal_utils import (
-    remove_clutter,
     dacm_demodulate,
-    extract_vital_signals,
     estimate_bpm,
+    extract_vital_signals,
+    remove_clutter,
 )
 
 __all__ = [

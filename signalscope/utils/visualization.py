@@ -1,9 +1,12 @@
 """Signal and result visualization."""
 
-from typing import Optional, Tuple
+from typing import TYPE_CHECKING
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
+if TYPE_CHECKING:
+    from signalscope.benchmark.leaderboard import Leaderboard
 
 
 def plot_signal(
@@ -12,8 +15,8 @@ def plot_signal(
     title: str = "Signal",
     xlabel: str = "Time (s)",
     ylabel: str = "Amplitude",
-    figsize: Tuple[int, int] = (12, 4),
-    ax: Optional[plt.Axes] = None,
+    figsize: tuple[int, int] = (12, 4),
+    ax: plt.Axes | None = None,
 ) -> plt.Axes:
     """
     Plot a 1D time-series signal.
@@ -48,8 +51,8 @@ def plot_spectrogram(
     signal: np.ndarray,
     sample_rate: float = 1.0,
     title: str = "Spectrogram",
-    figsize: Tuple[int, int] = (10, 4),
-    ax: Optional[plt.Axes] = None,
+    figsize: tuple[int, int] = (10, 4),
+    ax: plt.Axes | None = None,
 ) -> plt.Axes:
     """
     Plot a spectrogram of a 1D signal.
@@ -84,7 +87,7 @@ def plot_leaderboard(
     leaderboard: "Leaderboard",
     metric: str = "mae_mean",
     title: str = "Benchmark Leaderboard",
-    figsize: Tuple[int, int] = (8, 5),
+    figsize: tuple[int, int] = (8, 5),
 ) -> plt.Axes:
     """
     Bar chart of leaderboard results.

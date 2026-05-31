@@ -2,7 +2,6 @@
 PPG signal preprocessing: bandpass filtering, peak detection, feature extraction.
 """
 
-from typing import Dict, Optional, Tuple
 
 import numpy as np
 from scipy import signal as scipy_signal
@@ -24,7 +23,7 @@ class PPGProcessor(Pipeline):
             lowcut=lowcut, highcut=highcut, sample_rate=sample_rate, **config
         )
 
-    def __call__(self, ppg_signal: np.ndarray, sample_rate: Optional[float] = None) -> PipelineResult:
+    def __call__(self, ppg_signal: np.ndarray, sample_rate: float | None = None) -> PipelineResult:
         sr = sample_rate or self.config["sample_rate"]
         try:
             filtered = self._bandpass_filter(ppg_signal, sr)
@@ -60,7 +59,7 @@ class PPGProcessor(Pipeline):
 
     def _estimate_heart_rate(
         self, peaks: np.ndarray, sr: float, n_samples: int
-    ) -> Optional[float]:
+    ) -> float | None:
         if len(peaks) < 2:
             return None
         intervals = np.diff(peaks) / sr

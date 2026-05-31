@@ -5,10 +5,10 @@ All processing modules (preprocessing, models, evaluation, benchmark)
 inherit from this base class to ensure a consistent interface.
 """
 
-from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional, Union
-from dataclasses import dataclass, field
 import logging
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -18,9 +18,9 @@ class PipelineResult:
     """Structured result from any SignalScope pipeline step."""
 
     data: Any
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
     success: bool = True
-    error: Optional[str] = None
+    error: str | None = None
 
     def __repr__(self) -> str:
         if self.success:
@@ -32,7 +32,7 @@ class PipelineResult:
 class Pipeline(ABC):
     """Base pipeline class with shared configuration and logging."""
 
-    def __init__(self, name: Optional[str] = None, **config: Any):
+    def __init__(self, name: str | None = None, **config: Any):
         self.name = name or self.__class__.__name__
         self.config = config
         logger.info(f"Initialized {self.name} with config: {config}")

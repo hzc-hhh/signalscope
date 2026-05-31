@@ -3,14 +3,15 @@ Tests for evaluation metrics and statistical tests.
 """
 
 import numpy as np
+
 from signalscope.evaluation.metrics import (
+    bland_altman,
     compute_metrics,
     heart_rate_error,
-    bland_altman,
 )
 from signalscope.evaluation.statistical_tests import (
-    paired_ttest,
     bootstrap_confidence_interval,
+    paired_ttest,
 )
 
 

@@ -2,18 +2,16 @@
 Leaderboard — ranked comparison of models on benchmark tasks.
 """
 
-from typing import Any, Dict, List
-
-import numpy as np
+from typing import Any
 
 
 class Leaderboard:
     """Ranked leaderboard for benchmark results."""
 
     def __init__(self):
-        self.results: List[Dict[str, Any]] = []
+        self.results: list[dict[str, Any]] = []
 
-    def add_result(self, model_name: str, metrics: Dict[str, float]) -> None:
+    def add_result(self, model_name: str, metrics: dict[str, float]) -> None:
         """Add a model's benchmark result."""
         self.results.append({"model": model_name, **metrics})
 
@@ -21,7 +19,7 @@ class Leaderboard:
         """Sort results by a metric (ascending)."""
         self.results.sort(key=lambda r: r.get(sort_by, float("inf")))
 
-    def top(self, n: int = 10) -> List[Dict[str, Any]]:
+    def top(self, n: int = 10) -> list[dict[str, Any]]:
         """Return top N results."""
         return self.results[:n]
 
@@ -31,7 +29,10 @@ class Leaderboard:
             return "No results yet."
 
         keys = list(self.results[0].keys())
-        col_widths = {k: max(len(k), max(len(str(r.get(k, ""))) for r in self.results)) for k in keys}
+        col_widths = {
+            k: max(len(k), max(len(str(r.get(k, ""))) for r in self.results))
+            for k in keys
+        }
 
         def fmt_row(vals):
             return " | ".join(str(v).ljust(col_widths[k]) for k, v in zip(keys, vals))
@@ -43,7 +44,7 @@ class Leaderboard:
 
         return "\n".join(lines)
 
-    def to_dict(self) -> List[Dict[str, Any]]:
+    def to_dict(self) -> list[dict[str, Any]]:
         """Return results as list of dicts."""
         return self.results
 

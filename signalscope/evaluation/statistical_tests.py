@@ -7,7 +7,6 @@ Provides standard tests for comparing two models/methods:
 - Bootstrap confidence intervals
 """
 
-from typing import Dict, Optional, Tuple
 
 import numpy as np
 from scipy import stats
@@ -17,7 +16,7 @@ def paired_ttest(
     errors_a: np.ndarray,
     errors_b: np.ndarray,
     alpha: float = 0.05,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Paired t-test comparing errors from two methods.
 
@@ -48,7 +47,7 @@ def wilcoxon_test(
     errors_a: np.ndarray,
     errors_b: np.ndarray,
     alpha: float = 0.05,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Wilcoxon signed-rank test (non-parametric paired test).
 
@@ -78,7 +77,7 @@ def bootstrap_confidence_interval(
     n_bootstrap: int = 10000,
     alpha: float = 0.05,
     random_seed: int = 42,
-) -> Dict[str, float]:
+) -> dict[str, float]:
     """
     Bootstrap confidence interval for a statistic.
 

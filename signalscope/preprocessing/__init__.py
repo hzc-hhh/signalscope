@@ -9,9 +9,9 @@ Supported modalities:
 - sync: Multi-modal signal alignment
 """
 
-from signalscope.preprocessing.radar import IQPipeline, VitalSigns
-from signalscope.preprocessing.ppg import PPGProcessor
 from signalscope.preprocessing.ecg import ECGProcessor
+from signalscope.preprocessing.ppg import PPGProcessor
+from signalscope.preprocessing.radar import IQPipeline, VitalSigns
 from signalscope.preprocessing.sync import MultiModalAligner
 
 __all__ = [
