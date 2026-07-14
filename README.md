@@ -13,6 +13,11 @@
 
 </div>
 
+> [!IMPORTANT]
+> **Project status / 项目定位 — personal learning sandbox.** SignalScope is an exploratory toy prototype for personal learning and experimentation. It is **not** a paper artifact or a representative résumé/portfolio project. Some features described here may be partial, stubbed, synthetic, or unvalidated; no claim is made that every documented module or workflow is fully implemented. Do not rely on it for research, clinical, or production use.
+>
+> SignalScope 是个人学习与实验用途的玩具原型，**不作为论文成果、求职项目或个人代表作**。仓库中部分功能、基准、示例或文档可能尚未完成、仅为占位实现、使用合成数据或未经验证；请勿将其用于正式科研、临床或生产环境。
+
 ---
 
 ## 🎯 The Problem
